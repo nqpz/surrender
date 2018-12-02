@@ -1,0 +1,6 @@
+/lib
+/test
+/test.pam
+*.o
+surrender.c
+surrender.h
