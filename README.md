@@ -2,8 +2,8 @@
 
 ![Screenshot](screenshot.png)
 
-Render triangles with Futhark.  Run something like this (requires
-imagemagick and feh):
+Render triangles with [Futhark](http://futhark-lang.org/) (install this
+first).  Run something like this (requires imagemagick and feh):
 
 ```
 make && ./test && cat test.pam | convert - png:- | feh -
