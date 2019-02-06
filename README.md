@@ -3,7 +3,7 @@
 ![Screenshot](screenshot.png)
 
 Render triangles with [Futhark](http://futhark-lang.org/) (install this
-first).  Run something like this (requires imagemagick and feh):
+first).  Run something like this (requires SDL2 and SDL2-ttf headers):
 
 ```
 make && ./lys
