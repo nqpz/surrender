@@ -6,7 +6,7 @@ Render triangles with [Futhark](http://futhark-lang.org/) (install this
 first).  Run something like this (requires imagemagick and feh):
 
 ```
-make && ./test && cat test.pam | convert - png:- | feh -
+make && ./lys
 ```
 
 This works by being parallel in the number of triangles.  Contrast to

@@ -2,7 +2,7 @@ import "lib/github.com/athas/vector/vspace"
 
 module vec3 = mk_vspace_3d f32
 
-type pixel = u32
+type pixel = i32
 type pos3 = vec3.vector
 type pos2 = {x: i32, y: i32}
 type pos_proj = {x: i32, y: i32, z: f32}
@@ -24,7 +24,7 @@ let make_bbox (t: tri_proj): bbox =
 let bbox_size (bb: bbox): i32 =
   (bb.lower_right.x - bb.upper_left.x + 1) * (bb.lower_right.y - bb.upper_left.y + 1)
 
-let neutral_loc: loc = {color=0u32, z=f32.inf}
+let neutral_loc: loc = {color=0xffffffff, z=f32.inf}
 
 let barycentric_coordinates (p: pos2) (t: tri_proj): point_barycentric =
   let factor = (t.p1.y - t.p2.y) * (t.p0.x - t.p2.x) + (t.p2.x - t.p1.x) * (t.p0.y - t.p2.y)
@@ -72,7 +72,7 @@ let split_triangle (t: tri3): (tri3, tri3) =
 let empty_triangle: tri3 = {p0={x=0, y=0, z=0},
                             p1={x=0, y=0, z=0},
                             p2={x=0, y=0, z=0},
-                            color=0u32}
+                            color=0}
 
 -- Should be both associative and commutative.
 let merge_locs (loc0: loc) (loc1: loc): loc =
@@ -111,14 +111,3 @@ let render_triangles (h: i32) (w: i32) (bbox_max_size: i32) (view_dist: f32) (ts
   let (is, as) = unzip (unsafe flatten (map (render_to_rect w bbox_max_size) ts'))
   let frame' = reduce_by_index frame merge_locs neutral_loc is as
   in unflatten h w (map (\loc -> loc.color) frame')
-
-entry render_triangles_raw [n] (h: i32) (w: i32) (bbox_max_size: i32) (view_dist: f32)
-  (t_p0_xs: [n]f32) (t_p0_ys: [n]f32) (t_p0_zs: [n]f32)
-  (t_p1_xs: [n]f32) (t_p1_ys: [n]f32) (t_p1_zs: [n]f32)
-  (t_p2_xs: [n]f32) (t_p2_ys: [n]f32) (t_p2_zs: [n]f32)
-  (t_colors: [n]u32): []pixel =
-  let t_p0s = map3 (\x y z -> {x=x, y=y, z=z}) t_p0_xs t_p0_ys t_p0_zs
-  let t_p1s = map3 (\x y z -> {x=x, y=y, z=z}) t_p1_xs t_p1_ys t_p1_zs
-  let t_p2s = map3 (\x y z -> {x=x, y=y, z=z}) t_p2_xs t_p2_ys t_p2_zs
-  let ts = map4 (\p0 p1 p2 color -> {p0=p0, p1=p1, p2=p2, color=color}) t_p0s t_p1s t_p2s t_colors
-  in flatten (render_triangles h w bbox_max_size view_dist ts)

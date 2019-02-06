@@ -1,6 +1,7 @@
 /lib
-/test
-/test.pam
+/lys
 *.o
 surrender.c
 surrender.h
+lys_wrapper.c
+lys_wrapper.h

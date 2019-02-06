@@ -1,3 +1,4 @@
 require {
   github.com/athas/vector 0.2.3 #91d8983c45d12c63cebecf2ffb73a2bd3b7215ed
+  github.com/diku-dk/lys 0.0.0-20190206214200+f455fe5b288a1a9a9bfd90996dd2778aaeccc268
 }
