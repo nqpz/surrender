@@ -29,4 +29,9 @@ module lys: lys = {
 
   let render (s: state) =
     render_triangles s.h s.w 1000 600 s.triangles
+
+  let text_format = ""
+  type text_content = ()
+  let text_content _ _ = ()
+  let text_colour = const argb.black
 }
