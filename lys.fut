@@ -1,7 +1,13 @@
 import "lib/github.com/diku-dk/lys/lys"
 import "surrender"
 
-module lys: lys = {
+module lys_no_controls = {
+  let key _ _ s = s
+  let mouse _ _ _ s = s
+  let wheel _ _ s = s
+}
+
+module lys: lys_no_text = {
   type state = {h: i32, w: i32,
                 triangles: []tri3}
 
@@ -22,16 +28,11 @@ module lys: lys = {
   let resize (h: i32) (w: i32) (s: state) =
     s with h = h with w = w
 
-  let key _ _ s = s
-  let mouse _ _ _ s = s
-  let wheel _ _ s = s
-  let step _ s = s
-
   let render (s: state) =
     render_triangles s.h s.w 1000 600 s.triangles
 
-  let text_format = ""
-  type text_content = ()
-  let text_content _ _ = ()
-  let text_colour = const argb.black
+  let step = const id
+
+  open lys_no_controls
+  open lys_no_text
 }
