@@ -2,6 +2,8 @@
 
 ![Screenshot](screenshot.png)
 
+**Don't use this.**
+
 Render triangles with [Futhark](http://futhark-lang.org/) (install this
 first).  Run something like this (requires SDL2 and SDL2-ttf headers):
 
